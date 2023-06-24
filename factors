@@ -1,17 +1,16 @@
 #!/usr/bin/python3
 from sys import argv
-def gcd(a, b):
-    while b != 0:
-        t = b
-        b = a % b
-        a = t
-    return a
+def biggestFactor(num):
+    result = 1
+    for(i=2; i*i <=num; i++):
+        if(num%i==0):
+            result = num/i
+            break
+    return result
 if len(argv) != 2:
     print("{} <file>".format(argv[0]))
 with open(argv[1]) as factor_file:
     for line in factor_file:
         line = int(line)
-        oprand_2 = 2
-        while oprand_2 < line:
-            print("{:d}={:d}*{:d}".format(line, gcd(line, oprand_2), oprand_2))
-            oprand_2 += 1
+        largest_factor = biggestFactor(line)
+        print("{:d}={:d}*{:d}".format(line, largest_factor, line/largest_factor))
