@@ -35,7 +35,7 @@ with open(argv[1]) as factor_file:
         factor = pollard_rho(line)
         temp_factor = factor - 1
         while temp_factor >= 2:
-            if (line % temp_factor == 0)
+            if (line % temp_factor == 0):
                 factor = temp_factor
             temp_factor -= 1
         print("{:d}={:d}*{:d}".format(line, int(line / factor), int(factor)))
