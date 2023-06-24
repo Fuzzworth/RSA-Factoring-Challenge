@@ -14,4 +14,4 @@ with open(argv[1]) as factor_file:
         oprand_2 = 1
         while oprand_2 < line:
             print("{:d}={:d}*{:d}".format(line, line, line))
-            oprand_2--
+            oprand_2 -= 1
