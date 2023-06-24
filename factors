@@ -3,7 +3,7 @@ from sys import argv
 def gcd(a, b):
     while b != 0:
         t = b
-        b = a mod b
+        b = a % b
         a = t
     return a
 if len(argv) != 2:
