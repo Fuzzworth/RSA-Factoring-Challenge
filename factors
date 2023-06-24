@@ -26,18 +26,22 @@ def pollard_rho(n):
 
     return d
 
-def largest_factor(n):
-    factor = pollard_rho(n)
+def smallest_factor(n):
+    if n % 2 == 0:
+        return 2
 
-    while factor is not None:
-        n //= factor
-        factor = pollard_rho(n)
+    sqrt_n = math.isqrt(n)
+
+    for i in range(3, sqrt_n + 1, 2):
+        if n % i == 0:
+            return i
 
     return n
+
 if len(argv) != 2:
     print("{} <file>".format(argv[0]))
 with open(argv[1]) as factor_file:
     for line in factor_file:
         line = int(line)
-        factor = pollard_rho(line)
+        factor = smallest_factor(line)
         print("{:d}={:d}*{:d}".format(line, int(line / factor), int(factor)))
