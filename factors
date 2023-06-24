@@ -14,7 +14,7 @@ def pollard_rho(n):
     def f(x):
         return (x**2 + 1) % n
     
-    x = y = random.randint(1, n-1)
+    x = y = 2
     d = 1
     
     while d == 1:
