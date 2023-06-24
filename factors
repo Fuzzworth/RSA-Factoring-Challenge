@@ -13,5 +13,5 @@ with open(argv[1]) as factor_file:
         line = int(line)
         oprand_2 = 1
         while oprand_2 < line:
-            print("{:d}={:d}*{:d}".format(line, line, line))
-            oprand_2 -= 1
+            print("{:d}={:d}*{:d}".format(line, gcd(line, oprand_2), oprand_2))
+            oprand_2 += 1
