@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 from sys import argv
-from math import isqrt
 def gcd(a, b):
     while b != 0:
         a, b = b, a % b
