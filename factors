@@ -13,4 +13,4 @@ with open(argv[1]) as factor_file:
     for line in factor_file:
         line = int(line)
         largest_factor = biggestFactor(line)
-        print("{:d}={:d}*{:d}".format(line, largest_factor, line//largest_factor))
+        print("{:d}={:d}*{:d}".format(line, largest_factor, int(line / largest_factor)))
