@@ -19,7 +19,7 @@ def pollard_rho(n):
     while d == 1:
         x = f(x)
         y = f(f(y))
-        print(abs(x -y))
+        print(abs(x - y))
         d = gcd(abs(x - y), n)
 
         if d == n:
