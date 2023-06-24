@@ -6,7 +6,7 @@ def biggestFactor(num):
         if(num%i==0):
             result = num/i
             break
-    return result
+    return int(result)
 if len(argv) != 2:
     print("{} <file>".format(argv[0]))
 with open(argv[1]) as factor_file:
