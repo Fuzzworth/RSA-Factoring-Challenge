@@ -4,4 +4,5 @@ if len(argv) != 2:
     print("{} <file>".format(argv[0]))
 with open(argv[1]) as factor_file:
     for line in factor_file:
+        line = line[:-1]
         print("{}={}*{}".format(line, line, line))
