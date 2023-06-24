@@ -1,8 +1,14 @@
 #!/usr/bin/python3
 from sys import argv
+def gcd(a, b):
+    while b != 0:
+        t = b
+        b = a mod b
+        a = t
+    return a
 if len(argv) != 2:
     print("{} <file>".format(argv[0]))
 with open(argv[1]) as factor_file:
     for line in factor_file:
-        line = line[:-1]
+        line = int(line)
         print("{}={}*{}".format(line, line, line))
