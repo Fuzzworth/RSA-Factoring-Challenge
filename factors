@@ -1,40 +1,32 @@
 #!/usr/bin/python3
 from sys import argv
-import math
 import random
-
-def gcd(a, b):
-    while b != 0:
-        a, b = b, a % b
-    return a
-
-def pollard_rho(n):
-    if n % 2 == 0:
-        return 2
+def prime_factors(n):
+    factors = []
     
-    x = 2
-    y = 2
-    d = 1
-    
-    f = lambda x: (x**2 + 1) % n
-    
-    while d == 1:
-        x = f(x)
-        y = f(f(y))
-        d = gcd(abs(x - y), n)
-        
-        if d == n:
-            return None  # Failed to find a factor
-    
-    return d
-def smallest_prime_factor(n):
-    factor = pollard_rho(n)
-
-    while factor is None:
-        n += 1
+    while True:
         factor = pollard_rho(n)
+        
+        if factor is None:
+            factors.append(n)
+            break
+        
+        factors.append(factor)
+        n //= factor
+    
+    return factors
 
-    return factor
+def lowest_common_divisor(n):
+    factors = prime_factors(n)
+    lcd = 1
+    
+    for factor in set(factors):
+        power = factors.count(factor)
+        lcd *= factor ** power
+    
+    return lcd
+
+
 
 if len(argv) != 2:
     print("{} <file>".format(argv[0]))
