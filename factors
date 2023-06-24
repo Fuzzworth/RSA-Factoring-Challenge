@@ -1,31 +1,5 @@
 #!/usr/bin/python3
 from sys import argv
-def prime_factors(n):
-    factors = []
-    while n % 2 == 0:
-        factors.append(2)
-        n //= 2
-    sqrt_n = math.isqrt(n)
-    for i in range(3, sqrt_n + 1, 2):
-        while n % i == 0:
-            factors.append(i)
-            n //= i
-    if n > 2:
-        factors.append(n)
-    return factors
-
-def lowest_common_divisor(numbers):
-    prime_factors_list = []
-    for number in numbers:
-        prime_factors_list.append(prime_factors(number))
-    common_factors = set(prime_factors_list[0])
-    for factors in prime_factors_list[1:]:
-        common_factors.intersection_update(factors)
-    lcd = 1
-    for factor in common_factors:
-        power = max([factors.count(factor) for factors in prime_factors_list])
-        lcd *= factor ** power
-    return lcd
 def gcd(a, b):
     while b != 0:
         a, b = b, a % b
@@ -34,24 +8,47 @@ def gcd(a, b):
 def pollard_rho(n):
     if n % 2 == 0:
         return 2
-
-    x = 2
-    y = 2
+    
+    def f(x):
+        return (x**2 + 1) % n
+    
+    x = y = random.randint(1, n-1)
     d = 1
-
-    f = lambda x: (x**2 + 1) % n
-
+    
     while d == 1:
         x = f(x)
         y = f(f(y))
-        print(abs( x - y ))
         d = gcd(abs(x - y), n)
-
+        
         if d == n:
             return None
-
+    
     return d
 
+def prime_factors(n):
+    factors = []
+    
+    while True:
+        factor = pollard_rho(n)
+        
+        if factor is None:
+            factors.append(n)
+            break
+        
+        factors.append(factor)
+        n //= factor
+    
+    return factors
+
+def lowest_common_divisor(n):
+    factors = prime_factors(n)
+    lcd = 1
+    
+    for factor in set(factors):
+        power = factors.count(factor)
+        lcd *= factor ** power
+    
+    return lcd
 
 if len(argv) != 2:
     print("{} <file>".format(argv[0]))
