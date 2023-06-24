@@ -20,6 +20,8 @@ def pollard_rho(n):
         x = f(x)
         y = f(f(y))
         d = gcd(abs(x - y), n)
+        print(d)
+
 
         if d == n:
             return None
