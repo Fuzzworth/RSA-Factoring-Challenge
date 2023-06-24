@@ -27,35 +27,10 @@ def pollard_rho(n):
             return None  # Failed to find a factor
     
     return d
-def prime_factors(n):
-    factors = []
-    
-    while True:
-        factor = pollard_rho(n)
-        
-        if factor is None:
-            factors.append(n)
-            break
-        
-        factors.append(factor)
-        n //= factor
-    
-    return factors
-
-def lowest_common_divisor(n):
-    factors = prime_factors(n)
-    lcd = 1
-    
-    for factor in set(factors):
-        power = factors.count(factor)
-        lcd *= factor ** power
-    
-    return lcd
-
 if len(argv) != 2:
     print("{} <file>".format(argv[0]))
 with open(argv[1]) as factor_file:
     for line in factor_file:
         line = int(line)
-        factor = lowest_common_divisor(line)
+        factor = pollard_rho(line)
         print("{:d}={:d}*{:d}".format(line, int(line / factor), int(factor)))
