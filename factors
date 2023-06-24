@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from sys import argv
-from math import sqrt
+from math import isqrt
 def gcd(a, b):
     while b != 0:
         a, b = b, a % b
@@ -30,7 +30,7 @@ def smallest_factor(n):
     if n % 2 == 0:
         return 2
 
-    sqrt_n = sqrt(n)
+    sqrt_n = isqrt(n)
 
     for i in range(3, sqrt_n + 1, 2):
         if n % i == 0:
