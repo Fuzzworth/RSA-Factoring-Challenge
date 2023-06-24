@@ -12,11 +12,11 @@ def pollard_rho(n):
     if n % 2 == 0:
         return 2
     
-    def f(x):
-        return (x**2 + 1) % n
-    
-    x = y = 2
+    x = 2
+    y = 2
     d = 1
+    
+    f = lambda x: (x**2 + 1) % n
     
     while d == 1:
         x = f(x)
@@ -24,10 +24,9 @@ def pollard_rho(n):
         d = gcd(abs(x - y), n)
         
         if d == n:
-            return None
+            return None  # Failed to find a factor
     
     return d
-
 def prime_factors(n):
     factors = []
     
