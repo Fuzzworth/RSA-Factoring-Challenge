@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 from sys import argv
+import math
+import random
 def gcd(a, b):
     while b != 0:
         a, b = b, a % b
