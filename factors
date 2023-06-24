@@ -30,18 +30,10 @@ def pollard_p_minus_1(n, bound):
         
     return None
 
-def largest_factor(n):
-    factor = pollard_p_minus_1(n, 100)
-    
-    while factor is not None:
-        n //= factor
-        factor = pollard_p_minus_1(n, 100)
-    
-    return n
 if len(argv) != 2:
     print("{} <file>".format(argv[0]))
 with open(argv[1]) as factor_file:
     for line in factor_file:
         line = int(line)
-        factor = largest_factor(line)
+        factor = pollard_p_minus_1(line)
         print("{:d}={:d}*{:d}".format(line, int(line / factor), int(factor)))
