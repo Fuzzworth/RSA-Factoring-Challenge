@@ -65,4 +65,6 @@ with open(argv[1]) as factor_file:
     for line in factor_file:
         line = int(line)
         factor = smallest_prime_factor(line)
+        if (line % factor != 0):
+            factor = 1
         print("{:d}={:d}*{:d}".format(line, int(line / factor), int(factor)))
