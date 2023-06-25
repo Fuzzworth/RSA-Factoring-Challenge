@@ -1,40 +1,20 @@
 #!/usr/bin/python3
 from sys import argv
-import random
+import math
 
-def gcd(a, b):
-    while b != 0:
-        a, b = b, a % b
-    return a
-
-def pollard_rho(n):
+def lowest_prime_factor(n):
     if n % 2 == 0:
         return 2
-    
-    def f(x):
-        return (x**2 + 1) % n
-    
-    x = y = 2
-    d = 1
-    factor_found = False
-    
-    while d == 1 and not factor_found:
-        x = f(x)
-        y = f(f(y))
-        d = gcd(abs(x - y), n)
-        
-        if d == n:
-            return None
-        if d > 1:
-            factor_found = True
-    
-    return d
-
+    sqrt_n = math.isqrt(n) + 1
+    for i in range(3, sqrt_n, 2):
+        if n % i == 0:
+            return i
+    return n
 
 if len(argv) != 2:
     print("{} <file>".format(argv[0]))
 with open(argv[1]) as factor_file:
     for line in factor_file:
         line = int(line)
-        factor = pollard_rho(line)
+        factor = lowest_prime_factor(line)
         print("{:d}={:d}*{:d}".format(line, int(line / factor), int(factor)))
