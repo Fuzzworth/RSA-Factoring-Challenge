@@ -2,19 +2,62 @@
 from sys import argv
 import math
 
-def lowest_prime_factor(n):
+def gcd(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+def pollard_rho(n):
     if n % 2 == 0:
         return 2
-    sqrt_n = math.isqrt(n) + 1
-    for i in range(3, sqrt_n, 2):
+    if n % 5 == 0:
+        return 5
+    x = y = 2
+    d = 1
+
+    f = lambda x: (x**2 + 1) % n
+
+    while d == 1:
+        x = f(x)
+        y = f(f(y))
+        d = gcd(abs(x - y), n)
+
+        if d == n:
+            return None  # Failed to find a factor
+
+    return d
+
+def is_prime(n):
+    if n <= 1:
+        return False
+    if n == 2:
+        return True
+    if n % 2 == 0:
+        return False
+    
+    sqrt_n = int(math.sqrt(n))
+    for i in range(3, sqrt_n + 1, 2):
         if n % i == 0:
-            return i
-    return n
+            return False
+    
+    return True
+
+def smallest_prime_factor(n):
+    factor = pollard_rho(n)
+    
+    while factor is None:
+        n += 1
+        factor = pollard_rho(n)
+    
+    if is_prime(factor):
+        return factor
+    else:
+        return smallest_prime_factor(n + 1)
 
 if len(argv) != 2:
     print("{} <file>".format(argv[0]))
 with open(argv[1]) as factor_file:
     for line in factor_file:
         line = int(line)
-        factor = lowest_prime_factor(line)
+        factor = smallest_prime_factor(line)
         print("{:d}={:d}*{:d}".format(line, int(line / factor), int(factor)))
