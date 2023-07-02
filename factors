@@ -17,5 +17,6 @@ filename="$1"
 while IFS= read -r number; do
 	result=$(factor "$number")
 	second_num=$(echo $result | tr ":" "=" | cut -d " " -f 2 | tr -d " ")
-	python3 -c "print(\"{}={}*{}\".format($number, int($number / $second_num), $second_num))"
+	third_num=$(expr $number / $second_num)
+	echo "$number=$third_num*$second_num"
 done < "$filename"
